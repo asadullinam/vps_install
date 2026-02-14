@@ -1,4 +1,4 @@
-FROM python:3.11-slim-buster as builder
+FROM python:3.11-slim-bookworm AS builder
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ RUN apt-get update && pip install --upgrade pip
 COPY requirements.txt .
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.txt
 
-FROM python:3.11-slim-buster
+FROM python:3.11-slim-bookworm
 
 WORKDIR /app
 

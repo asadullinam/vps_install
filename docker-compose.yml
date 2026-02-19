@@ -16,6 +16,7 @@ services:
       XUI_PANEL_PORT: ${XUI_PANEL_PORT}
       XUI_HOSTNAME: ${XUI_HOSTNAME}
       XUI_EMAIL: ${XUI_EMAIL}
+      XUI_BASE_PATH: ""
       TGTOKEN: ${TGTOKEN}
       ADMINID: ${ADMINID}
     volumes:

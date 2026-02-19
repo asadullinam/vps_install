@@ -222,7 +222,7 @@ echo -e "username and password applied to 3X-UI Container"
 sleep 1
 docker restart 3x-ui
 echo -e "3X-UI Docker container restarted"
-sleep 3
+sleep 8
 #Adds default config for XTLS-Reality into x-ui.db if conditions met (prompt y/n)
 check_inbounds_table
 

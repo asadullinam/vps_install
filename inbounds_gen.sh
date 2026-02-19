@@ -2,10 +2,30 @@
 
 # Generate values
 UUID=$(uuidgen)
-output=$(docker exec 3x-ui sh -c "/app/bin/xray-linux-amd64 x25519")
 
-PRIVATE_KEY=$(echo "$output" | awk -F': ' '/Private key/ {print $2}')
-PUBLIC_KEY=$(echo "$output" | awk -F': ' '/Public key/ {print $2}')
+# Wait until the xray binary is available inside the running container
+echo "Waiting for xray binary inside 3x-ui container..."
+XRAY_BIN=""
+for i in $(seq 1 15); do
+    for candidate in "/app/bin/xray-linux-amd64" "/app/bin/xray" "/usr/local/bin/xray"; do
+        if docker exec 3x-ui test -f "$candidate" 2>/dev/null; then
+            XRAY_BIN="$candidate"
+            break 2
+        fi
+    done
+    echo "  not ready yet ($i/15), waiting 2s..."
+    sleep 2
+done
+
+if [ -z "$XRAY_BIN" ]; then
+    echo "ERROR: xray binary not found inside 3x-ui after 30s — keys will be empty"
+    PRIVATE_KEY=""
+    PUBLIC_KEY=""
+else
+    output=$(docker exec 3x-ui sh -c "$XRAY_BIN x25519" 2>/dev/null)
+    PRIVATE_KEY=$(echo "$output" | awk -F': ' '/Private key/ {print $2}')
+    PUBLIC_KEY=$(echo "$output" | awk -F': ' '/Public key/ {print $2}')
+fi
 
 echo "Private key: $PRIVATE_KEY"
 echo "Public key: $PUBLIC_KEY"

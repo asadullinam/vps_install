@@ -74,9 +74,10 @@ INSERT INTO "inbounds" VALUES (1,1,0,0,0,'',1,0,'',443,'vless','{
   "realitySettings": {
     "show": false,
     "xver": 0,
-    "dest": "dl.google.com:443",
+    "dest": "www.microsoft.com:443",
     "serverNames": [
-      "dl.google.com"
+      "www.microsoft.com",
+      "microsoft.com"
     ],
     "privateKey": "$PRIVATE_KEY",
     "minClient": "",
@@ -87,7 +88,7 @@ INSERT INTO "inbounds" VALUES (1,1,0,0,0,'',1,0,'',443,'vless','{
     ],
     "settings": {
       "publicKey": "$PUBLIC_KEY",
-      "fingerprint": "chrome",
+      "fingerprint": "safari",
       "serverName": "",
       "spiderX": "/"
     }
